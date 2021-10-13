@@ -4,8 +4,9 @@ import { PropTypes } from 'prop-types';
 import {
   BrowserRouter as Router, Route, Switch, Redirect,
 } from 'react-router-dom';
-import updateApiRenderList from '../actions/index';
-// import styles from '../styles/App.module.css';
+import DashBoard from '../container/DashBoard';
+import AssetDetailsSafe from '../container/AssetDetailsSafe';
+import { updateApiRenderList } from '../actions/index';
 
 class App extends React.Component {
   constructor(props) {
@@ -40,9 +41,17 @@ class App extends React.Component {
             <img src="https://img.shields.io/badge/Github-Repo-green" alt="repo" />
           </a>
           <Switch>
-            <Route exact path="/" />
+            <Route exact path="/" component={DashBoard} />
             <Route
               path="/asset/:id"
+              render={(props) => (
+                <AssetDetailsSafe
+                  currency={this.currencyFilter}
+                  data={this.currentCryptoList}
+                  // eslint-disable-next-line
+                  {...props}
+                />
+              )}
             />
             <Route
               path={'/*'}
